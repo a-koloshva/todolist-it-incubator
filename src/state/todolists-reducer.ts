@@ -1,8 +1,8 @@
-import { FilterValuesType, TodolistType } from '../App';
 import { v1 } from 'uuid';
+import { FilterValuesType, TodolistType } from '../components/App/types';
 
-let todolistID1 = v1();
-let todolistID2 = v1();
+export const todolistID1 = v1();
+export const todolistID2 = v1();
 
 const initialState: TodolistType[] = [
     { id: todolistID1, title: 'What to learn', filter: 'all' },
@@ -21,7 +21,7 @@ export const todolistsReducer = (state: TodolistType[] = initialState, action: A
                 title: action.payload.title,
                 filter: 'all',
             };
-            return [...state, newTodolist];
+            return [newTodolist, ...state];
         }
 
         case 'CHANGE-TODOLIST-TITLE': {
@@ -37,7 +37,7 @@ export const todolistsReducer = (state: TodolistType[] = initialState, action: A
         }
 
         default:
-            throw new Error("I don't understand this type");
+            return state;
     }
 };
 
