@@ -1,10 +1,10 @@
 import { Container, Grid } from '@mui/material';
-import { AddItemForm } from './components/Todolists/Todolist/AddItemForm/AddItemForm';
+import { AddItemForm } from '../features/todolists/ui/Todolists/Todolist/AddItemForm/AddItemForm';
 import { useDispatch } from 'react-redux';
-import { addTodolistAC } from './model/todolists-reducer';
+import { addTodolistAC } from '../model/todolists-reducer';
 
 import { useCallback } from 'react';
-import { Todolists } from './components/Todolists/Todolists';
+import { Todolists } from '../features/todolists/ui/Todolists/Todolists';
 
 export const Main = () => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export const Main = () => {
                 <AddItemForm addItem={addTodolist} />
             </Grid>
 
-            <Grid container spacing={4}>
+            <Grid container>
                 <Todolists />
             </Grid>
         </Container>

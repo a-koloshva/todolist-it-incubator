@@ -1,34 +1,41 @@
 import { Box, Button } from '@mui/material';
-import { FilterValuesType } from '../../../../model/todolists-reducer';
-import { filterButtonsContainerSx } from '../styles';
+import {
+    changeTodolistFilterAC,
+    FilterValuesType,
+    TodolistType,
+} from '../../../../../../model/todolists-reducer';
+import { useDispatch } from 'react-redux';
+import { filterButtonsContainerSx } from './styled';
 
 type FilterTasksButtonsPropsType = {
-    todolistId: string;
-    filter: FilterValuesType;
-    changeFilter: (filter: FilterValuesType, todolistId: string) => void;
+    todolist: TodolistType;
 };
 
-export const FilterTasksButtons = (props: FilterTasksButtonsPropsType) => {
+export const FilterTasksButtons = ({ todolist }: FilterTasksButtonsPropsType) => {
+    const { id, filter } = todolist;
+
+    const dispatch = useDispatch();
+
     const changeFilterTasksHandler = (filter: FilterValuesType) => {
-        props.changeFilter(filter, props.todolistId);
+        dispatch(changeTodolistFilterAC({ id, filter }));
     };
 
     return (
         <Box sx={filterButtonsContainerSx}>
             <Button
-                variant={props.filter === 'all' ? 'outlined' : 'text'}
+                variant={filter === 'all' ? 'outlined' : 'text'}
                 color={'inherit'}
                 onClick={() => changeFilterTasksHandler('all')}>
                 All
             </Button>
             <Button
-                variant={props.filter === 'active' ? 'outlined' : 'text'}
+                variant={filter === 'active' ? 'outlined' : 'text'}
                 color={'primary'}
                 onClick={() => changeFilterTasksHandler('active')}>
                 Active
             </Button>
             <Button
-                variant={props.filter === 'completed' ? 'outlined' : 'text'}
+                variant={filter === 'completed' ? 'outlined' : 'text'}
                 color={'secondary'}
                 onClick={() => changeFilterTasksHandler('completed')}>
                 Completed
